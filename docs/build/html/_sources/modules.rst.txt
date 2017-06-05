@@ -1,7 +1,0 @@
-PythonSourceCodeUnraveler
-=========================
-
-.. toctree::
-   :maxdepth: 4
-
-   pythonsourcecodeunraveler
