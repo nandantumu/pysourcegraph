@@ -1,2 +1,3 @@
 """ This is the module docstring"""
-from .cfile import CFile
+from .sfile import SFile
+from .sclass import SClass
