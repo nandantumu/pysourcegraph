@@ -1,4 +1,4 @@
-PythonSourceCodeUnraveler
+pythonsourcecodeunraveler
 =========================
 
 .. toctree::

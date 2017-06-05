@@ -1,9 +1,9 @@
-.. PythonSourceCodeUnraveler documentation master file, created by
+.. pythonsourcecodeunraveler documentation master file, created by
    sphinx-quickstart on Mon Jun  5 11:54:45 2017.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to PythonSourceCodeUnraveler's documentation!
+Welcome to pythonsourcecodeunraveler's documentation!
 =====================================================
 
 .. toctree::
