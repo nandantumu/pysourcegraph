@@ -46,14 +46,12 @@ class SFile(object):
                                    "." +
                                    linearray[linearray.index('import')+1])
                 except IndexError:
-                    raise SyntaxError("The file selected has \
-invalid import statements.")
+                    raise SyntaxError("The file selected has invalid import statements.")
             elif 'import' in linearray:
                 try:
                     retlist.append(linearray[linearray.index('import')])
                 except IndexError:
-                    raise SyntaxError("The file selected has \
-invalid import statements.")
+                    raise SyntaxError("The file selected has invalid import statements.")
             del linearray
         return retlist
         # TODO check if the import statement is inside a string literal
