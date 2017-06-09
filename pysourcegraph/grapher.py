@@ -48,6 +48,10 @@ class Grapher:
                     self.dotfile.edge(self.objname[modname(files)], imp)
                     if imp not in self.donelist:
                         self.filelist.append(imp+".py")
+                        print("Adding " + imp + ".py" + " to filelist")
+            elif os.path.isdir(files):
+                print('Disregarding ' + files)
+                pass # pylint: disable=W0107
             elif os.path.isdir(files.split('.')[0]):
                 #It's a package!
                 print("Package import: " + files.replace('.', '/', 1) + " |OG String: " + files)
@@ -58,6 +62,7 @@ class Grapher:
                     self.dotfile.edge(self.objname[modname(targfilename)], imp)
                     if imp not in self.donelist:
                         self.filelist.append(imp+".py")
+                        print("Adding " + imp + ".py" + " to filelist")
             else:
                 print("External import: " + files)
                 self.dotfile.node(files)
