@@ -31,7 +31,7 @@ class Grapher:
         module.close()
 
         with self.dotfile.subgraph(name='cluster_'+modnam) as module:
-            module.label(modnam)
+            module.attr(label=modnam)
             self.objname[modnam] = 'cluster_'+modnam
             for cla in classes:
                 module.node(modnam + "." + cla, label=cla)
