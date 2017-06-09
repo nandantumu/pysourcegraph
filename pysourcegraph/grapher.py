@@ -17,7 +17,7 @@ class Grapher:
         self.dotfile = graphviz.Digraph(name=title)
         self.objname = dict()
 
-    def modulegrapher(self, module):
+    def modulegrapher(self, module, donename = None):
         """ Graphs a module and all classes inside it returns a list of all modules linked
 
         Args:
@@ -27,6 +27,7 @@ class Grapher:
         module.seek(0)
         classes = class_lister(module)
         modnam = modname(module.name)
+        if donename is None: donename = module.name
         module.close()
 
         with self.dotfile.subgraph(name='cluster_'+modnam) as module:
@@ -35,20 +36,23 @@ class Grapher:
                 module.node(modnam + "." + cla, label=cla)
                 self.objname[modnam + "." + cla] = modnam + "." + cla
 
-        self.donelist.append(modnam)
+        self.donelist.append(donename)
         return imports
 
     def main(self):
         """Main loop"""
         for files in self.filelist:
-            if os.path.isfile(files) and ispython(files):
+            if files in self.donelist:
+                pass
+            elif os.path.isfile(files) and ispython(files):
                 print("Absolute import: " + files)
                 imports = self.modulegrapher(open(files))
                 for imp in imports:
                     self.dotfile.edge(self.objname[modname(files)], imp)
-                    if imp not in self.donelist:
-                        self.filelist.append(imp+".py")
-                        print("Adding " + imp + ".py" + " to filelist")
+                    imp = imp + ".py"
+                    if imp not in self.donelist and imp not in self.filelist:
+                        self.filelist.append(imp)
+                        # print("Adding " + imp + ".py" + " to filelist")
             elif os.path.isdir(files):
                 print('Disregarding ' + files)
                 pass # pylint: disable=W0107
@@ -57,15 +61,17 @@ class Grapher:
                 print("Package import: " + files.replace('.', '/', 1) + " |OG String: " + files)
                 targfile = open(files.replace('.', '/', 1))
                 targfilename = targfile.name
-                imports = self.modulegrapher(targfile)
+                imports = self.modulegrapher(targfile, donename=files)
                 for imp in imports:
                     self.dotfile.edge(self.objname[modname(targfilename)], imp)
-                    if imp not in self.donelist:
-                        self.filelist.append(imp+".py")
-                        print("Adding " + imp + ".py" + " to filelist")
+                    imp = imp + ".py"
+                    if imp not in self.donelist and imp not in self.filelist:
+                        self.filelist.append()
+                        # print("Adding " + imp + ".py" + " to filelist")
             else:
                 print("External import: " + files)
                 self.dotfile.node(files)
+                self.donelist.append(files)
 
         return self.dotfile.save("sourcegraph.gv")
 
