@@ -59,15 +59,20 @@ class Grapher:
             elif os.path.isdir(files.split('.')[0]):
                 #It's a package!
                 print("Package import: " + files.replace('.', '/', 1) + " |OG String: " + files)
-                targfile = open(files.replace('.', '/', 1))
-                targfilename = targfile.name
-                imports = self.modulegrapher(targfile, donename=files)
-                for imp in imports:
-                    self.dotfile.edge(self.objname[modname(targfilename)], imp)
-                    imp = imp + ".py"
-                    if imp not in self.donelist and imp not in self.filelist:
-                        self.filelist.append()
-                        # print("Adding " + imp + ".py" + " to filelist")
+                try:
+                    targfile = open(files.replace('.', '/', 1))
+                    targfilename = targfile.name
+                    imports = self.modulegrapher(targfile, donename=files)
+                    for imp in imports:
+                        self.dotfile.edge(self.objname[modname(targfilename)], imp)
+                        imp = imp + ".py"
+                        if imp not in self.donelist and imp not in self.filelist:
+                            self.filelist.append()
+                            # print("Adding " + imp + ".py" + " to filelist")
+                except FileNotFoundError:
+                    print("External import: " + files)
+                    self.dotfile.node(files)
+                    self.donelist.append(files)
             else:
                 print("External import: " + files)
                 self.dotfile.node(files)
