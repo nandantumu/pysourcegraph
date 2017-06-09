@@ -1,3 +1,5 @@
 pysourcegraph/__pycache__/
 pysourcegraph.egg-info/
 build/
+.vscode/
+dist/

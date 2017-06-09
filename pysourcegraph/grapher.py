@@ -57,6 +57,8 @@ class Grapher:
             else:
                 self.dotfile.node(files)
 
+        return self.dotfile.save("sourcegraph.gv")
+
 def ispython(filename):
     """Returns True if file extension is py
     Returns False otherwise.
