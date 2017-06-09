@@ -42,5 +42,5 @@ def class_lister(pyfile):
     retlist = []
     for node in ast.walk(tree):
         if isinstance(node, ast.ClassDef):
-            retlist.append(node.ClassDef.name)
+            retlist.append(node.name)
     return retlist
