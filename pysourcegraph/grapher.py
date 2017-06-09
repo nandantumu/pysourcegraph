@@ -24,8 +24,10 @@ class Grapher:
             module (file): File pointing to the module to be graphed
         """
         imports = import_lister(module)
+        module.seek(0)
         classes = class_lister(module)
         modnam = modname(module.name)
+        module.close()
 
         with self.dotfile.subgraph(name='cluster_'+modnam) as module:
             self.objname[modnam] = 'cluster_'+modnam
@@ -40,6 +42,7 @@ class Grapher:
         """Main loop"""
         for files in self.filelist:
             if os.path.isfile(files) and ispython(files):
+                print("Absolute import: " + files)
                 imports = self.modulegrapher(open(files))
                 for imp in imports:
                     self.dotfile.edge(self.objname[modname(files)], imp)
@@ -47,6 +50,7 @@ class Grapher:
                         self.filelist.append(imp+".py")
             elif os.path.isdir(files.split('.')[0]):
                 #It's a package!
+                print("Package import: " + files.replace('.', '/', 1) + "OG String: " + files)
                 targfile = open(files.replace('.', '/', 1))
                 targfilename = targfile.name
                 imports = self.modulegrapher(targfile)
@@ -55,6 +59,7 @@ class Grapher:
                     if imp not in self.donelist:
                         self.filelist.append(imp+".py")
             else:
+                print("External import: " + files)
                 self.dotfile.node(files)
 
         return self.dotfile.save("sourcegraph.gv")

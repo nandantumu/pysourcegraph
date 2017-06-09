@@ -12,7 +12,6 @@ def import_lister(pyfile):
         If nothing is imported, then an empty list will be returned.
     """
     tree = ast.parse(pyfile.read())
-    pyfile.close()
     retlist = []
     for node in ast.walk(tree):
         if isinstance(node, ast.Import):
@@ -38,7 +37,6 @@ def class_lister(pyfile):
         If no classes are present, then an empty list will be returned.
     """
     tree = ast.parse(pyfile.read())
-    pyfile.close()
     retlist = []
     for node in ast.walk(tree):
         if isinstance(node, ast.ClassDef):
