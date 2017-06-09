@@ -24,6 +24,7 @@ def import_lister(pyfile):
                 modname = node.module
             for aliasnode in node.names:
                 retlist.append(str(modname)+str(aliasnode.name))
+    print("For module " + pyfile.name + ", following imports were returned:" + str(retlist))
     return retlist
 
 def class_lister(pyfile):
@@ -41,4 +42,5 @@ def class_lister(pyfile):
     for node in ast.walk(tree):
         if isinstance(node, ast.ClassDef):
             retlist.append(node.name)
+    print("For module " + pyfile.name + ", following classes were returned:" + str(retlist))
     return retlist
