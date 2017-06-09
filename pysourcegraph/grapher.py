@@ -25,15 +25,44 @@ class Grapher:
         """
         imports = import_lister(module)
         classes = class_lister(module)
-        modname = module.name.split('.')[0]
+        modnam = modname(module.name)
 
-        with self.dotfile.subgraph(name='cluster_'+modname) as module:
-            self.objname[modname] = 'cluster_'+modname
-            for c in classes:
-                module.node(modname + "." + c, label='c')
-                self.objname[modname + "." + c] = modname + "." + c
-        
+        with self.dotfile.subgraph(name='cluster_'+modnam) as module:
+            self.objname[modnam] = 'cluster_'+modnam
+            for cla in classes:
+                module.node(modnam + "." + cla, label=cla)
+                self.objname[modnam + "." + cla] = modnam + "." + cla
+
+        self.donelist.append(modnam)
         return imports
-    
+
     def main(self):
-        
+        """Main loop"""
+        for files in self.filelist:
+            if os.path.isfile(files) and ispython(files):
+                imports = self.modulegrapher(open(files))
+                for imp in imports:
+                    self.dotfile.edge(self.objname[modname(files)], imp)
+                    if imp not in self.donelist:
+                        self.filelist.append(imp+".py")
+            elif os.path.isdir(files.split('.')[0]):
+                #It's a package!
+                targfile = open(files.replace('.', '/', 1))
+                targfilename = targfile.name
+                imports = self.modulegrapher(targfile)
+                for imp in imports:
+                    self.dotfile.edge(self.objname[modname(targfilename)], imp)
+                    if imp not in self.donelist:
+                        self.filelist.append(imp+".py")
+            else:
+                self.dotfile.node(files)
+
+def ispython(filename):
+    """Returns True if file extension is py
+    Returns False otherwise.
+    """
+    return filename.split('.')[1] == 'py'
+
+def modname(filename):
+    """Returns module name from py file"""
+    return filename.split('.')[0]
