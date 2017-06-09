@@ -50,7 +50,7 @@ class Grapher:
                         self.filelist.append(imp+".py")
             elif os.path.isdir(files.split('.')[0]):
                 #It's a package!
-                print("Package import: " + files.replace('.', '/', 1) + "OG String: " + files)
+                print("Package import: " + files.replace('.', '/', 1) + " |OG String: " + files)
                 targfile = open(files.replace('.', '/', 1))
                 targfilename = targfile.name
                 imports = self.modulegrapher(targfile)
