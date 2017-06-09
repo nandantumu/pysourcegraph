@@ -25,5 +25,15 @@ class Grapher:
         """
         imports = import_lister(module)
         classes = class_lister(module)
+        modname = module.name.split('.')[0]
+
+        with self.dotfile.subgraph(name='cluster_'+modname) as module:
+            self.objname[modname] = 'cluster_'+modname
+            for c in classes:
+                module.node(modname + "." + c, label='c')
+                self.objname[modname + "." + c] = modname + "." + c
         
-        with self.dotfile.subgraph(name='cluster_'+module.name) as mod
+        return imports
+    
+    def main(self):
+        
