@@ -19,11 +19,9 @@ def import_lister(pyfile):
             for aliasnode in node.names:
                 retlist.append(aliasnode.name)
         elif isinstance(node, ast.ImportFrom):
-            modname = ''
-            if node.level > 0:
-                modname = node.module
+            modname = node.module
             for aliasnode in node.names:
-                retlist.append(str(modname)+str(aliasnode.name))
+                retlist.append(str(modname) + "." + str(aliasnode.name))
     print("For module " + pyfile.name + ", following imports were returned:" + str(retlist))
     return retlist
 
