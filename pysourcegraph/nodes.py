@@ -12,7 +12,7 @@ class BaseNode(object):
         Args:
             childnode(BaseNode): Node to be added under this node
         """
-        self.children.append(childnode)
+        self._children.append(childnode)
 
     def remove_child(self, targetnode):
         """Remove a child node from this node
@@ -21,7 +21,7 @@ class BaseNode(object):
             targetnode(BaseNode): Node to be removed from this node
         """
         try:
-            list.remove()
+            self._children.remove()
         except ValueError:
             print("Failed to remove node" + targetnode)
 
@@ -42,10 +42,11 @@ class BaseNode(object):
     def __repr__(self):
         """Define python representation of object"""
         return str(self.__class__) + str(self.__dict__)
-    
+
+    @DeprecationWarning
     def getlocalattr(self, attrname):
         """Return a function that returns the value of attrname in this class
-        
+
         >>>self.x = 100
         >>>self.getlocalattr("x")()
         >>>100
@@ -54,7 +55,8 @@ class BaseNode(object):
             attrname(str): String of the name of the variable
         """
         return lambda: getattr(self, attrname)
-    
+
+    @DeprecationWarning
     def setlocalattr(self, attrname):
         """Return a function that sets the value of attrname in this class
 
@@ -68,6 +70,7 @@ class BaseNode(object):
         """
         return lambda value: setattr(self, attrname, value)
 
+    @DeprecationWarning
     def dellocalattr(self, attrname):
         """Return a function that deletes attrname from this class
 
@@ -75,3 +78,13 @@ class BaseNode(object):
             attrname(str): String of the name of the variable
         """
         return lambda: delattr(self, attrname)
+
+    @property
+    def name(self):
+        """The fully qualified name of the Node"""
+        return self._name
+
+    @property
+    def docstring(self):
+        """The DocString found documenting this Node"""
+        return self._docstring
