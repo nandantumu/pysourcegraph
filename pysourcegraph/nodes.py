@@ -88,3 +88,18 @@ class BaseNode(object):
     def docstring(self):
         """The DocString found documenting this Node"""
         return self._docstring
+
+class PackageNode(BaseNode):
+    """This Node represents a package, with modules and subpackages within"""
+    def __init__(self, name, docstring=None, filepath=None):
+        self._filepath = filepath
+        super().__init__(name=name, docstring=docstring)
+    
+    @property
+    def filepath(self):
+        """This is the filepath of the directory of the package, relative to startpoint"""
+        return self._filepath
+    
+    @filepath.setter
+    def filepath(self, value):
+        self._filepath = value
