@@ -107,7 +107,7 @@ class PackageNode(BaseNode):
     def __init__(self, name, docstring=None, filepath=None):
         self._filepath = filepath
         super().__init__(name=name, docstring=docstring)
-    
+
     @property
     def filepath(self):
         """This is the filepath of the directory of the package, relative to startpoint"""
