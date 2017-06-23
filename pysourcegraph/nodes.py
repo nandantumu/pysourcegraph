@@ -1,6 +1,11 @@
 """ This class contains objects used to maintain the structure of the python source code."""
 class BaseNode(object):
-    """ This object is the base for all of the other, more sepecific node types"""
+    """ This object is the base for all of the other, more sepecific node types
+    Attributes:
+        children: A list of all children of this node
+        name: A string containing the fully qualified name of the node
+        docstring: A string containing the docstring associated with this node. Defaults to None
+    """
     def __init__(self, name, docstring=None):
         """Create new BaseNode object"""
         self._name = name
@@ -24,6 +29,10 @@ class BaseNode(object):
             self._children.remove()
         except ValueError:
             print("Failed to remove node" + targetnode)
+
+    def get_children(self):
+        """Return the list of children"""
+        return self._children
 
     def __eq__(self, other):
         """Define custom Equals behavior"""
@@ -90,7 +99,11 @@ class BaseNode(object):
         return self._docstring
 
 class PackageNode(BaseNode):
-    """This Node represents a package, with modules and subpackages within"""
+    """This Node represents a package, with modules and subpackages within
+
+    Attributes:
+        filepath: A string containing the relative filepath of the Package.
+            These should be directories."""
     def __init__(self, name, docstring=None, filepath=None):
         self._filepath = filepath
         super().__init__(name=name, docstring=docstring)
@@ -99,7 +112,63 @@ class PackageNode(BaseNode):
     def filepath(self):
         """This is the filepath of the directory of the package, relative to startpoint"""
         return self._filepath
-    
+
     @filepath.setter
     def filepath(self, value):
         self._filepath = value
+
+class ModuleNode(BaseNode):
+    """This Node represents a Module, with classes, functions and imports within"""
+    def __init__(self, name, docstring=None, filepath=None):
+        super().__init__(name=name, docstring=docstring)
+        self._filepath = filepath
+    @property
+    def filepath(self):
+        """String containing the relative filepath of the module. Should point to .py file"""
+        return self._filepath
+
+    @filepath.setter
+    def filepath(self, value):
+        self._filepath = value
+
+class ClassNode(BaseNode):
+    """This node represents a class, with imports, functions, and attributes within"""
+    def __init__(self, name, docstring=None):
+        super().__init__(name=name, docstring=docstring)
+
+class FunctionNode(BaseNode):
+    """This node represents a function"""
+    def __init__(self, name, docstring=None, arguments=None):
+        super().__init__(name=name, docstring=docstring)
+        self._arguments = arguments
+
+    @property
+    def arguments(self):
+        """This is intended to represent a list of all arguments given to the function."""
+        return NotImplemented
+
+class ImportNode(BaseNode):
+    """This node represents an import"""
+    def __init__(self, name, docstring=None, alias=None):
+        super().__init__(name=name, docstring=docstring)
+        if alias is None:
+            self._alias = name
+        else:
+            self._alias = alias
+
+    @property
+    def name(self):
+        """The fully qualified name of the target imported package"""
+        return self._name
+    @property
+    def alias(self):
+        """This is the value that the imported package was imported as"""
+        return self._alias
+
+    @alias.setter
+    def alias(self, value):
+        self._alias = value
+
+    @alias.deleter
+    def alias(self):
+        self._alias = self._name
