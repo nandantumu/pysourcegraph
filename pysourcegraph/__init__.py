@@ -4,4 +4,4 @@ understanding of the codebase they wish to contribute to in a visual, intuitive
 manner.
 """
 from .nodes import BaseNode, PackageNode, ModuleNode, ClassNode, FunctionNode,\
-                   ImportNode
+                   ImportNode, tree_builder
