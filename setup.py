@@ -23,7 +23,7 @@ setup(
     license="CC BY-NC-SA 4.0",
     keywords="structure, sourcecode, graphing, visualization, modules",
     url="http://github.com/nandantumu/pysourcegraph",
-    packages=['pysourcegraph'],
+    packages=['pysourcegraph', 'test'],
     long_description=read('README.md'),
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
