@@ -1,7 +1,7 @@
 """Test module for nodes.py"""
 import unittest
 from pysourcegraph import *
-from pysourcegraph.nodes import map_folder, map_module
+from pysourcegraph.parsing import map_folder, map_module
 
 class NodesTest(unittest.TestCase):
     """Test node attributes"""
