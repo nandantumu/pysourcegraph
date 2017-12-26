@@ -42,15 +42,13 @@ class BaseNode(object):
         """Define custom Equals behavior"""
         if isinstance(other, self.__class__):
             return self.__dict__ == other.__dict__
-        else:
-            return NotImplemented
+        return NotImplemented
 
     def __ne__(self, other):
         """Define custom NotEquals behavior"""
         if isinstance(other, self.__class__):
             return not self == other
-        else:
-            return NotImplemented
+        return NotImplemented
 
     def __repr__(self):
         """Define python representation of object"""

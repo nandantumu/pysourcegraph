@@ -1,5 +1,5 @@
 """
-This module contains the parsing functions used to create node trees from 
+This module contains the parsing functions used to create node trees from
 source code
 """
 from .nodes import BaseNode, PackageNode, ModuleNode, ClassNode, FunctionNode,\
@@ -59,8 +59,7 @@ def map_folder(file_path):
         tree.add_child(map_module(basepath + listing))
     if tree.is_childless():
         return None
-    else:
-        return tree
+    return tree
 
 def map_module(file_path):
     """

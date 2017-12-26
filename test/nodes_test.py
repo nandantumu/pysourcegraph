@@ -23,7 +23,8 @@ class NodesTest(unittest.TestCase):
 
 class TreeCreationTest(unittest.TestCase):
     """Test the creation of trees from source"""
-    def test_tree_builder(self):
+    def test_basic_tree_builder(self):
+        """Tests that tree_builder returns without error"""
         self.assertIsNotNone(tree_builder(r"C:\Users\nanda\Downloads\astroid-1.6.0"))
 
 
