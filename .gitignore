@@ -1,4 +1,5 @@
 pysourcegraph/__pycache__/
+test/__pycache__/
 pysourcegraph.egg-info/
 build/
 .vscode/
