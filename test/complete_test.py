@@ -1,7 +1,6 @@
 """Test module for nodes.py"""
 import unittest
-from pysourcegraph import *
-from pysourcegraph.parsing import map_folder, map_module
+from pysourcegraph import BaseNode,tree_builder,tree_to_dot
 
 class NodesTest(unittest.TestCase):
     """Test node attributes"""
@@ -27,6 +26,10 @@ class TreeCreationTest(unittest.TestCase):
         """Tests that tree_builder returns without error"""
         self.assertIsNotNone(tree_builder(r"C:\Users\nanda\Downloads\astroid-1.6.0"))
 
+    def test_creation_of_dot_file(self):
+        """Tests that a dot file is created"""
+        sourcefile = open("sfile.dot", "w")
+        sourcefile.write(tree_to_dot(tree_builder(r"C:\Users\nanda\Downloads\astroid-1.6.0")))
 
 if __name__ == '__main__':
     unittest.main()
