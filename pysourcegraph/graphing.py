@@ -11,7 +11,6 @@ def tree_to_dot(tree):
     Returns:
         str: DOT formatted string
     """
-    from graphviz import Digraph
     # From the root of the tree, create subgraphs
     graph = subgraph_generator(tree)
     return graph.source
