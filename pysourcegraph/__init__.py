@@ -7,3 +7,5 @@ from .nodes import BaseNode, PackageNode, ModuleNode, ClassNode, FunctionNode,\
                    ImportNode
 
 from .parsing import tree_builder
+
+from .graphing import tree_to_dot

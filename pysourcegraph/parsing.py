@@ -84,6 +84,14 @@ def map_module(file_path):
         if isinstance(node, ast.Import):
             for alias in node.names:
                 realtree.add_child(ImportNode(name=alias.name, alias=alias.asname))
+        if isinstance(node, ast.ImportFrom):
+            for alias in node.names:
+                if node.module is None:
+                    realtree.add_child(ImportNode(name="."+alias.name,
+                                                  alias=alias.asname))
+                else:
+                    realtree.add_child(ImportNode(name=node.module+"."+alias.name,
+                                                  alias=alias.asname))
         if isinstance(node, ast.ClassDef):
             realtree.add_child(ClassNode(node.name, ast.get_docstring(node)))
         if isinstance(node, ast.FunctionDef):
