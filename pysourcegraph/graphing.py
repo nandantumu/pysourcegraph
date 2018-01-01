@@ -3,6 +3,7 @@ Convert parsed trees to graphs.
 """
 from .nodes import BaseNode, PackageNode, ModuleNode, ClassNode, FunctionNode,\
                    ImportNode
+
 def tree_to_dot(tree):
     """
     Converts a tree to GraphViz dot format
@@ -29,8 +30,8 @@ def subgraph_generator(tree):
                     graph_attr={'label':tree.filepath})
     for child in tree.get_children():
         if isinstance(child, PackageNode):
-            sg = subgraph_generator(child)
-            graph.subgraph(sg)
+            sub_graph = subgraph_generator(child)
+            graph.subgraph(sub_graph)
         elif isinstance(child, ModuleNode):
             graph.node(child.name)
     return graph

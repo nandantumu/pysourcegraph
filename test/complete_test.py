@@ -1,6 +1,6 @@
 """Test module for nodes.py"""
 import unittest
-from pysourcegraph import BaseNode,tree_builder,tree_to_dot
+from pysourcegraph import BaseNode, tree_builder, tree_to_dot
 
 class NodesTest(unittest.TestCase):
     """Test node attributes"""
